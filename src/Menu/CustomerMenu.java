@@ -16,6 +16,8 @@ public class CustomerMenu {
                  break;
         case 2:  CustomerHistoryMenu();
                  break;
+        case 3:  CustomerProfileMenu();         
+                 break;
                  
                 }
     }
@@ -57,6 +59,24 @@ public class CustomerMenu {
     }
     
     public static int CustomerHistoryMenu() {
+        
+        int selection;
+        Scanner input = new Scanner(System.in);
+
+        /***************************************************/
+
+        System.out.println("Select History Order for reference?");
+        System.out.println("-----------------------------------\n");
+        System.out.println("1 - A");
+        System.out.println("2 - B");
+        System.out.println("3 - C");
+        System.out.println("4 - D");
+
+        selection = input.nextInt();
+        return selection;    
+    }
+    
+     public static int CustomerProfileMenu() {
         
         int selection;
         Scanner input = new Scanner(System.in);
