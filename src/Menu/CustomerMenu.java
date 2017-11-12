@@ -12,13 +12,13 @@ public class CustomerMenu {
         userChoice = CustomerMenu();
         
         switch (userChoice){
-        case 1:  CustomerOrderMenu();
-                 break;
-        case 2:  CustomerHistoryMenu();
-                 break;
-        case 3:  CustomerProfileMenu();         
-                 break;
-                 
+        case   1:  CustomerOrderMenu();
+                   break;
+        case   2:  CustomerHistoryMenu();
+                   break;
+        case   3:  CustomerProfileMenu();         
+                   break;
+        default :         
                 }
     }
  
