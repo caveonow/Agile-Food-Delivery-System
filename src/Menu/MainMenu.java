@@ -63,7 +63,7 @@ public class MainMenu extends JFrame{
         jbtModuleC.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                new CustomerMenu().setSize(800, 375);
+                new CustomerMainMenu().setSize(800, 375);
                 setVisible(false);
             }
         });
