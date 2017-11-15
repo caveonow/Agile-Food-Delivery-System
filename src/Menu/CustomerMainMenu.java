@@ -66,7 +66,7 @@ public class CustomerMainMenu extends JFrame{
         buttonSet.add(b3);
         
         p1 = new JPanel();
-        //p1.add(new CustomerOrderMenu());
+        p1.add(new CustomerOrderMenu());
         p2 = new JPanel();
         p3 = new JPanel();
         
@@ -113,7 +113,7 @@ public class CustomerMainMenu extends JFrame{
             }
             
             else if(e.getSource() == jbtCustomerHistory) {
-                p2.add(new OrderHistoryMenu());
+                p2.add(new CustomerOrderHistory());
                 jbtCustomerHistory.setForeground(Color.red);
                 buttonSet.setSize(800, 75);
                 getContentPane().add(p2,BorderLayout.CENTER);
