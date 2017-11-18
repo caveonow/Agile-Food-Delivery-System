@@ -1,11 +1,7 @@
 package Menu;
 
-/**
- *
- * @author Oon Bing Jie
- */
 import Menu.Staff;
-import Menu.WorkloadAssignment;
+import Menu.DeliveryMan;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DateFormat;
@@ -16,9 +12,9 @@ import java.util.GregorianCalendar;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
-import Menu.WorkloadAssignmentInterface;
+import Menu.DeliveryManInterface;
 
-public class WorkloadAssignmentDriver extends JFrame {
+public class DeliveryManManage extends JFrame {
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 //
@@ -31,34 +27,33 @@ public class WorkloadAssignmentDriver extends JFrame {
 //    private ImageIcon addImage = new ImageIcon(getClass().getResource("/icon/addIcon.png"));
 //    private ImageIcon clearImage = new ImageIcon(getClass().getResource("/icon/clearIcon.png"));
 
-    JLabel jlbTitle = new JLabel("Workload Assignment                                                               ");
     JButton jbtBack = new JButton("Back to Main Menu");
 
     //Staff Components
-    static WorkloadAssignmentInterface<Staff> stafflist = new WorkloadAssignment<>();
+    static DeliveryManInterface<Staff> stafflist = new DeliveryMan<>();
     //Register Page
     //JLabel
     private JLabel jlbStaffName = new JLabel("Name :");
     private JLabel jlbStaffContactNo = new JLabel("Contact No. :");
     private JLabel jlbStaffGender = new JLabel("Gender :");
-    private JLabel jlbStaffAge = new JLabel("Age :");
+    private JLabel jlbStaffIc = new JLabel("IC :");
     private JLabel jlbStaffStatus = new JLabel("Task Status :");
-    private JLabel jlbStaffRequestTask = new JLabel("Request Area Can Do :");
+    private JLabel jlbStaffAddress = new JLabel("Address");
     private JLabel jlbAreaAssign = new JLabel("Area Assign :");
     private JLabel jlbNoOfStaffAssign = new JLabel("Number Of Staff Assign :");
     //JTextField
     private JTextField jtfStaffName = new JTextField("");
     private JTextField jtfStaffContactNo = new JTextField("", 11);
     private JTextField jtfStaffStatus = new JTextField("Pending");
+    private JTextField jtfStaffIC = new JTextField("", 14);
+    private JTextField jtfStaffAddress = new JTextField("");
     //JModel
-    private DefaultComboBoxModel ageModel = new DefaultComboBoxModel();
     private DefaultComboBoxModel statusModel = new DefaultComboBoxModel();
-    //JCombobox
-    private JComboBox jcbStaffAge = new JComboBox(ageModel);
+
     //JCheckBox
-    private JCheckBox jcbRequestTask1 = new JCheckBox("Selangor(T1)");
-    private JCheckBox jcbRequestTask2 = new JCheckBox("Kuala Lumpur(T2)");
-    private JCheckBox jcbRequestTask3 = new JCheckBox("Seremban(T3)");
+//    private JCheckBox jcbRequestTask1 = new JCheckBox("Selangor(T1)");
+//    private JCheckBox jcbRequestTask2 = new JCheckBox("Kuala Lumpur(T2)");
+//    private JCheckBox jcbRequestTask3 = new JCheckBox("Seremban(T3)");
     //JButtonGroup
     private ButtonGroup bgGender = new ButtonGroup();
     //JRadioButton
@@ -68,7 +63,7 @@ public class WorkloadAssignmentDriver extends JFrame {
     private JButton jbtRegister = new JButton("Register");
     private JButton jbtClear = new JButton("Clear");
     //JTable1
-    Object[] columns = {"Staff Name", "Contact No", "Gender", "Age", "Request Area"};
+    Object[] columns = {"Staff Name", "Contact No", "Gender", "Ic", "Address"};
     Object[] row = new Object[6];
     DefaultTableModel model = new DefaultTableModel();
     JTable staffTable = new JTable();
@@ -80,33 +75,36 @@ public class WorkloadAssignmentDriver extends JFrame {
     private JLabel jlbAssignStaffStatus = new JLabel("Task Status :");
     private JLabel jlbAssignStaffRequestTask = new JLabel("Request Area Can Do :");
 //    private JLabel jlbAssignTask = new JLabel("Assign Task :");
-    private JLabel jlbAssignFood = new JLabel("Assign Food :");
+    private JLabel jlbAssignDepartLocation = new JLabel("Depart Location :");
+    private JLabel jlbAssignDestinationLocation = new JLabel("Destination:");
+    private JLabel jlbAssignFood = new JLabel("Food set :");
     //JTextField
     private JTextField jtfAssignStaffName = new JTextField();
     private JTextField jtfAssignStaffStatus = new JTextField();
-    private JTextField jtfAssignStaffRequestTask = new JTextField();
+//    private JTextField jtfAssignStaffRequestTask = new JTextField();
     //JModel
-    private DefaultComboBoxModel taskModel = new DefaultComboBoxModel();
-    private DefaultComboBoxModel areaModel = new DefaultComboBoxModel();
+    private DefaultComboBoxModel locationModel = new DefaultComboBoxModel();
+    private DefaultComboBoxModel foodSetModel = new DefaultComboBoxModel();
     //JCombobox
-    private JComboBox jcbAssignStaffTask = new JComboBox(taskModel);
-    private JComboBox jcbAssignStaffArea = new JComboBox(areaModel);
+    private JComboBox jcbAssignStaffDepartLocation = new JComboBox(locationModel);
+    private JComboBox jcbAssignStaffDestinationLocation = new JComboBox(locationModel);
+    private JComboBox jcbAssignStaffFood = new JComboBox(foodSetModel);
     //JButton  
     private JButton jbtAssign = new JButton("Assign");
     private JButton jbtComplete = new JButton("Complete");
     private JButton jbtReject = new JButton("Reject");
     private JButton jbtGenerateReport = new JButton("Generate Report");
     //JTabel2
-    Object[] columns2 = {"Staff Name", "Contact No", "Gender", "Age", "Status", "Delivery Area"};
+    Object[] columns2 = {"Staff Name", "Contact No", "Gender", "Ic", "Status", "Address"};
     Object[] row2 = new Object[6];
     DefaultTableModel model2 = new DefaultTableModel();
     JTable staffTable2 = new JTable();
     JScrollPane staffT2 = new JScrollPane(staffTable2);
     //End of Staff Components
 
-    public WorkloadAssignmentDriver() {
+    public DeliveryManManage() {
 
-        Font TitleFont = new Font("sans-serif", Font.BOLD, 26);
+//        Font TitleFont = new Font("sans-serif", Font.BOLD, 26);
         Font LabelFont = new Font("sans-serif", Font.BOLD, 13);
         Font btnFont = new Font("sans-serif", Font.BOLD, 15);
         Font tabFont = new Font("sans-serif", Font.BOLD, 15);
@@ -132,8 +130,6 @@ public class WorkloadAssignmentDriver extends JFrame {
         staffTable.getTableHeader().setFont(LabelFont);
         staffTable.setRowHeight(27);
 
-        initializeAgeModel();
-        jcbStaffAge.setSelectedItem(18);
         TitledBorder tb1 = new TitledBorder("Enter Staff Details");
         tb1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         TitledBorder tb2 = new TitledBorder("Staff Details Lists");
@@ -189,23 +185,26 @@ public class WorkloadAssignmentDriver extends JFrame {
         staffGenderPanel.add(jrbFemale);
         jrbMale.setActionCommand("Male");
         jrbFemale.setActionCommand("Female");
-        staffFormSubSubPanel.add(jlbStaffAge);
-        jlbStaffAge.setFont(LabelFont);
-        staffFormSubSubPanel.add(jcbStaffAge);
+        staffFormSubSubPanel.add(jlbStaffIc);
+        jlbStaffIc.setFont(LabelFont);
+        staffFormSubSubPanel.add(jtfStaffIC);
         staffFormSubSubPanel.add(jlbStaffStatus);
-        jlbStaffAge.setFont(LabelFont);
+        jlbStaffIc.setFont(LabelFont);
         staffFormSubSubPanel.add(jtfStaffStatus);
         jtfStaffStatus.setFont(jtfFont);
         jtfStaffStatus.setBackground(Color.white);
         jtfStaffStatus.setEditable(false);
-        staffFormSubSubPanel.add(jlbStaffRequestTask);
-        jlbStaffAge.setFont(LabelFont);
-        staffRequestTask.add(jcbRequestTask1);
-        staffRequestTask.add(jcbRequestTask2);
-        staffRequestTask.add(jcbRequestTask3);
-        jcbRequestTask1.setSelected(true);
-        jcbRequestTask1.setEnabled(false);
-        staffFormSubSubPanel.add(staffRequestTask);
+        staffFormSubSubPanel.add(jlbStaffAddress);
+        staffFormSubSubPanel.add(jtfStaffAddress);
+        jtfStaffAddress.setFont(jtfFont);
+        jtfStaffAddress.setBackground(Color.white);
+        jlbStaffIc.setFont(LabelFont);
+//        staffRequestTask.add(jcbRequestTask1);
+//        staffRequestTask.add(jcbRequestTask2);
+//        staffRequestTask.add(jcbRequestTask3);
+//        jcbRequestTask1.setSelected(true);
+//        jcbRequestTask1.setEnabled(false);
+//        staffFormSubSubPanel.add(staffRequestTask);
 
         staffFormSubSubPanel.add(jbtRegister).setFont(btnFont);
         jbtRegister.setVerticalAlignment(SwingConstants.CENTER);
@@ -263,11 +262,13 @@ public class WorkloadAssignmentDriver extends JFrame {
         staffTable2.getTableHeader().setFont(LabelFont);
         staffTable2.setRowHeight(27);
 
-        initializeTaskModel();
-        initializeAreaModel();
+        initializeLocationModel();
+        initializeFoodSetModel();
         initializeStatusModel();
 //        jcbAssignStaffTask.setSelectedItem(null);
-        jcbAssignStaffArea.setSelectedItem(null);
+        jcbAssignStaffDepartLocation.setSelectedItem(null);
+        jcbAssignStaffDestinationLocation.setSelectedItem(null);
+        jcbAssignStaffFood.setSelectedItem(null);
         TitledBorder tb3 = new TitledBorder("Staff Work Lists");
         tb1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         TitledBorder tb4 = new TitledBorder("Assign Staff Details");
@@ -311,16 +312,23 @@ public class WorkloadAssignmentDriver extends JFrame {
         jtfAssignStaffStatus.setEditable(false);
         staffAssignFormSubSubPanel.add(jlbAssignStaffRequestTask);
         jlbAssignStaffRequestTask.setFont(LabelFont);
-        staffAssignFormSubSubPanel.add(jtfAssignStaffRequestTask);
-        jtfAssignStaffRequestTask.setFont(jtfFont);
-        jtfAssignStaffRequestTask.setBackground(Color.white);
-        jtfAssignStaffRequestTask.setEditable(false);
+//        staffAssignFormSubSubPanel.add(jtfAssignStaffRequestTask);
+//        jtfAssignStaffRequestTask.setFont(jtfFont);
+//        jtfAssignStaffRequestTask.setBackground(Color.white);
+//        jtfAssignStaffRequestTask.setEditable(false);
 //        staffAssignFormSubSubPanel.add(jlbAssignTask);
 //        jlbAssignTask.setFont(LabelFont);
 //        staffAssignFormSubSubPanel.add(jcbAssignStaffTask);
+        staffAssignFormSubSubPanel.add(jlbAssignDepartLocation);
+        jlbAssignDepartLocation.setFont(LabelFont);
+        staffAssignFormSubSubPanel.add(jcbAssignStaffDepartLocation);
+        staffAssignFormSubSubPanel.add(jlbAssignDestinationLocation);
+        jlbAssignDestinationLocation.setFont(LabelFont);
+        staffAssignFormSubSubPanel.add(jcbAssignStaffDestinationLocation);
         staffAssignFormSubSubPanel.add(jlbAssignFood);
         jlbAssignFood.setFont(LabelFont);
-        staffAssignFormSubSubPanel.add(jcbAssignStaffArea);
+        staffAssignFormSubSubPanel.add(jcbAssignStaffFood);
+        
         staffAssignFormSubSubPanel.setPreferredSize(new Dimension(600, 0));
 
         staffAssignFormSubPanel.add(staffAssignButtonPanel);
@@ -377,10 +385,6 @@ public class WorkloadAssignmentDriver extends JFrame {
         topPanel.add(titleFlowPanel);
         centerPanel.add(tabbebPanel);
         centerPanel.setBackground(Color.white);
-        titleFlowPanel.setBackground(new Color(190, 244, 244));
-//        titleFlowPanel.add(new JLabel(logoImage));
-        titleFlowPanel.add(jlbTitle);
-        jlbTitle.setFont(TitleFont);
 
         titleFlowPanel.add(jbtBack).setFont(btnFont);
         jbtBack.setVerticalAlignment(SwingConstants.CENTER);
@@ -395,7 +399,7 @@ public class WorkloadAssignmentDriver extends JFrame {
         //Staff Panel
         //End of Staff Panel
         tabbebPanel.addTab("Staff Registration", staffRegistrerMainPanel);
-        tabbebPanel.addTab("Task Area",  taskAssignmentMainPanel);
+        tabbebPanel.addTab("Task Area", taskAssignmentMainPanel);
         tabbebPanel.setFont(tabFont);
         tabbebPanel.setBackground(Color.getHSBColor(178, 34, 34));
         tabbebPanel.setFocusable(true);
@@ -404,8 +408,8 @@ public class WorkloadAssignmentDriver extends JFrame {
 
         jbtBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-//                dispose();
-//                new MainMenu_New();
+                dispose();
+                new MainMenu().setSize(800, 375);
             }
         });
 
@@ -421,28 +425,29 @@ public class WorkloadAssignmentDriver extends JFrame {
                     String name = jtfStaffName.getText();
                     String contactNo = jtfStaffContactNo.getText();
                     String gender = bgGender.getSelection().getActionCommand();
-                    int age = (int) jcbStaffAge.getSelectedItem();
+                    String ic = jtfStaffIC.getText();
                     String status = jtfStaffStatus.getText();
+                    String address = jtfStaffAddress.getText();
 
-                    int[] requestTask = {0, 0, 0};
-                    int i = 0;
-                    requestTask[i] = 1;
-                    i++;
-                    if (jcbRequestTask2.isSelected()) {
-                        requestTask[i] = 2;
-                        i++;
-                    }
-                    if (jcbRequestTask3.isSelected()) {
-                        requestTask[i] = 3;
-                        i++;
-                    }
-                    Staff s = new Staff(name, contactNo, gender, age, status, requestTask);
+//                    int[] requestTask = {0, 0, 0};
+//                    int i = 0;
+//                    requestTask[i] = 1;
+//                    i++;
+//                    if (jcbRequestTask2.isSelected()) {
+//                        requestTask[i] = 2;
+//                        i++;
+//                    }
+//                    if (jcbRequestTask3.isSelected()) {
+//                        requestTask[i] = 3;
+//                        i++;
+//                    }
+                    Staff s = new Staff(name, contactNo, gender, ic, status, address);
                     stafflist.addStaff(s);
                     row[0] = s.getName();
                     row[1] = s.getContactNo();
                     row[2] = s.getGender();
-                    row[3] = s.getAge();
-                    row[4] = s.getRequestTaskString();
+                    row[3] = s.getIc();
+                    row[4] = s.getAddress();
                     model.addRow(row);
                     DisplayStaffWorkList();
                 }
@@ -460,17 +465,17 @@ public class WorkloadAssignmentDriver extends JFrame {
                             for (int i = 0; i < stafflist.getNumberOfAssigned(); i++) {
                                 if (staffName.equals(stafflist.getAssginedStaff()[i].getName())) {
                                     jtfAssignStaffStatus.setText(stafflist.getAllStaff()[l].getStatus());
-                                    jtfAssignStaffRequestTask.setText(stafflist.getAllStaff()[l].getRequestTaskString());
+//                                    jtfAssignStaffRequestTask.setText(stafflist.getAllStaff()[l].getRequestTaskString());
 //                                    jcbAssignStaffTask.setSelectedItem(stafflist.getAssginedStaff()[i].getCompleteTask());
-                                    jcbAssignStaffArea.setSelectedItem(stafflist.getAssginedStaff()[i].getAssignFood());
+                                    jcbAssignStaffFood.setSelectedItem(stafflist.getAssginedStaff()[i].getAssignFood());
                                     found = true;
                                 }
                             }
                         } else {
                             jtfAssignStaffStatus.setText(stafflist.getAllStaff()[l].getStatus());
-                            jtfAssignStaffRequestTask.setText(stafflist.getAllStaff()[l].getRequestTaskString());
+//                            jtfAssignStaffRequestTask.setText(stafflist.getAllStaff()[l].getRequestTaskString());
 //                            jcbAssignStaffTask.setSelectedItem(null);
-                            jcbAssignStaffArea.setSelectedItem(null);
+                            jcbAssignStaffFood.setSelectedItem(null);
                             found = true;
                         }
                     }
@@ -478,47 +483,48 @@ public class WorkloadAssignmentDriver extends JFrame {
                 if (found == false) {
                     JOptionPane.showMessageDialog(null, "Record not found", "Data Missing", JOptionPane.ERROR_MESSAGE);
                     jtfAssignStaffStatus.setText("");
-                    jtfAssignStaffRequestTask.setText("");
+//                    jtfAssignStaffRequestTask.setText("");
 //                    jcbAssignStaffTask.setSelectedItem(null);
-                    jcbAssignStaffArea.setSelectedItem(null);
+                    jcbAssignStaffFood.setSelectedItem(null);
                 }
             }
         });
 
-        jbtAssign.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (AssignValidation()) {
-                    int autoAssignTask = jcbAssignStaffTask.getSelectedIndex();
-                    String assignTask = (String) jcbAssignStaffTask.getSelectedItem();
-                    String assignArea = (String) jcbAssignStaffArea.getSelectedItem();
-                    Date date = new Date();
-                    String currentDate = dateFormat.format(date);
-                    Staff sl = stafflist.assignStaffWork(autoAssignTask);
-                    if (sl == null) {                //if return false,prompt no staff is fulfill the assign task
-                        JOptionPane.showMessageDialog(null, "No staff can be assign", "Staff Status Error", JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        Staff s = new Staff(sl.getName(), sl.getStatus(), sl.getRequestTaskString(), assignTask, assignArea, currentDate);
-                        s.setStatus("Working");
-                        JOptionPane.showMessageDialog(null, s.getName() + " is start to work " + assignTask, "Staff Working", JOptionPane.INFORMATION_MESSAGE);
-                        stafflist.addAssignmentReport(s);
-                        DisplayStaffWorkList();
-                    }
-                }
-            }
-        });
+//        jbtAssign.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                if (AssignValidation()) {
+////                    int autoAssignTask = jcbAssignStaffTask.getSelectedIndex();
+////                    String assignTask = (String) jcbAssignStaffTask.getSelectedItem();
+//                    String assignArea = (String) jcbAssignStaffFood.getSelectedItem();
+//                    Date date = new Date();
+//                    String currentDate = dateFormat.format(date);
+//                    Staff sl = stafflist.assignStaffWork(autoAssignTask);
+//                    if (sl == null) {                //if return false,prompt no staff is fulfill the assign task
+//                        JOptionPane.showMessageDialog(null, "No staff can be assign", "Staff Status Error", JOptionPane.ERROR_MESSAGE);
+//                    } else {
+//                        Staff s = new Staff(sl.getName(), sl.getStatus(), sl.getAddress(), assignTask, assignArea, currentDate);
+//                        s.setStatus("Working");
+//                        JOptionPane.showMessageDialog(null, s.getName() + " is start to work " + assignTask, "Staff Working", JOptionPane.INFORMATION_MESSAGE);
+//                        stafflist.addAssignmentReport(s);
+//                        DisplayStaffWorkList();
+//                    }
+//                }
+//            }
+//        });
 
         jbtComplete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (CompleteValidation()) {
                     String name = jtfAssignStaffName.getText();
                     String taskStatus = jtfAssignStaffStatus.getText();
-                    String taskRequest = jtfAssignStaffRequestTask.getText();
-                    String assignTask = (String) jcbAssignStaffTask.getSelectedItem();
-                    String assignArea = (String) jcbAssignStaffArea.getSelectedItem();
+//                    String taskRequest = jtfAssignStaffRequestTask.getText();
+                    String address = jtfStaffAddress.getText();
+                    String assignTask = (String) jcbAssignStaffDepartLocation.getSelectedItem();
+                    String assignArea = (String) jcbAssignStaffFood.getSelectedItem();
                     Date date = new Date();
                     String currentDate = dateFormat.format(date);
 
-                    Staff s = new Staff(name, taskStatus, taskRequest, assignTask, assignArea, currentDate);
+                    Staff s = new Staff(name, taskStatus, address, assignTask, assignArea, currentDate);
                     if (!s.getStatus().equals("Working")) {  //prompt error message if the staff are not working
                         JOptionPane.showMessageDialog(null, "Task Status are NOT Working", "Staff Status Error", JOptionPane.ERROR_MESSAGE);
                     } else {
@@ -539,20 +545,23 @@ public class WorkloadAssignmentDriver extends JFrame {
                     int choice;
                     String name = jtfAssignStaffName.getText();
                     String taskStatus = jtfAssignStaffStatus.getText();
-                    String taskRequest = jtfAssignStaffRequestTask.getText();
+                    String taskRequest = jtfStaffAddress.getText();
                     choice = JOptionPane.showConfirmDialog(null, "Do you sure want to reject '" + name + "' work?", "Confirm your Decision", JOptionPane.INFORMATION_MESSAGE);
 
                     if (choice == JOptionPane.OK_OPTION) {
-                        Staff s = new Staff(name, taskStatus, taskRequest);
-                        stafflist.rejectWork(s);
+//                        Staff s = new Staff(name, taskStatus, taskRequest);
+//                        Staff s = new Staff(name, contactNo, gender, ic, status, address);
+//                        stafflist.rejectWork(s);
                         DisplayStaffWorkList();
-                        JOptionPane.showMessageDialog(null, "Staff Had Be Rejected \nName : " + s.getName(),
+//                        JOptionPane.showMessageDialog(null, "Staff Had Be Rejected \nName : " + s.getName(),
+//                                "Rejected Staff", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Staff Had Be Rejected \nName : ",
                                 "Rejected Staff", JOptionPane.INFORMATION_MESSAGE);
                         jtfAssignStaffName.setText("");
                         jtfAssignStaffStatus.setText("");
-                        jtfAssignStaffRequestTask.setText("");
+//                        jtfAssignStaffRequestTask.setText("");
 //                        jcbAssignStaffTask.setSelectedItem(null);
-                        jcbAssignStaffArea.setSelectedItem(null);
+                        jcbAssignStaffFood.setSelectedItem(null);
                     }
                 }
             }
@@ -573,37 +582,32 @@ public class WorkloadAssignmentDriver extends JFrame {
         setVisible(true);
     }
 
-    private void initializeAgeModel() {
-        for (int i = 12; i <= 90; i++) {
-            ageModel.addElement(i);
-        }
-    }
-
     private void initializeStatusModel() {
-        statusModel.addElement("Pending");
+        statusModel.addElement("Available");
         statusModel.addElement("Working");
         statusModel.addElement("Completed");
+        statusModel.addElement("Unemployed");
     }
 
-    private void initializeTaskModel() {
-        taskModel.addElement("Selangor(T1)");
-        taskModel.addElement("Kuala Lumpur(T2)");
-        taskModel.addElement("Seremban(T3)");
+    private void initializeLocationModel() {
+        locationModel.addElement("Selangor(L1)");
+        locationModel.addElement("Kuala Lumpur(L2)");
+        locationModel.addElement("Seremban(L3)");
+        locationModel.addElement("Penang(L4)");
     }
 
-    private void initializeAreaModel() {
-        areaModel.addElement("Food Set A");
-        areaModel.addElement("Food Set B");
-        areaModel.addElement("Food Set C");
+    private void initializeFoodSetModel() {
+        foodSetModel.addElement("Food Set A");
+        foodSetModel.addElement("Food Set B");
+        foodSetModel.addElement("Food Set C");
     }
 
     public void Clear() {
         jtfStaffName.setText("");
         jtfStaffContactNo.setText("");
         jrbMale.setSelected(true);
-        jcbStaffAge.setSelectedItem(18);
-        jcbRequestTask2.setSelected(false);
-        jcbRequestTask3.setSelected(false);
+        jtfStaffIC.setText("");
+        jtfStaffAddress.setText("");
     }
 
     public void DisplayStaffWorkList() {
@@ -613,9 +617,9 @@ public class WorkloadAssignmentDriver extends JFrame {
                 row2[0] = stafflist.getAllStaff()[k].getName();
                 row2[1] = stafflist.getAllStaff()[k].getContactNo();
                 row2[2] = stafflist.getAllStaff()[k].getGender();
-                row2[3] = stafflist.getAllStaff()[k].getAge();
+                row2[3] = stafflist.getAllStaff()[k].getIc();
                 row2[4] = stafflist.getAllStaff()[k].getStatus();
-                row2[5] = stafflist.getAllStaff()[k].getRequestTaskString();
+                row2[5] = stafflist.getAllStaff()[k].getAddress();
                 model2.addRow(row2);
             }
         }
@@ -647,7 +651,7 @@ public class WorkloadAssignmentDriver extends JFrame {
 //            JOptionPane.showMessageDialog(null, "MUST Select a Task to Assign", "Task Missing", JOptionPane.ERROR_MESSAGE);
 //            return false;
 //        }
-        if (jcbAssignStaffArea.getSelectedItem() == null) {
+        if (jcbAssignStaffFood.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(null, "MUST Select a Area to Assign", "Area Missing", JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -661,7 +665,7 @@ public class WorkloadAssignmentDriver extends JFrame {
             JOptionPane.showMessageDialog(null, "Name textfield must fillup", "Name Missing", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        if (jtfAssignStaffStatus.getText().equals("") && jtfAssignStaffRequestTask.getText().equals("")) {
+        if (jtfAssignStaffStatus.getText().equals("") && jtfStaffAddress.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please search the staff which is working", "Data Missing", JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -669,7 +673,7 @@ public class WorkloadAssignmentDriver extends JFrame {
 //            JOptionPane.showMessageDialog(null, "MUST Select a Task to Assign", "Task Missing", JOptionPane.ERROR_MESSAGE);
 //            return false;
 //        }
-        if (jcbAssignStaffArea.getSelectedItem() == null) {
+        if (jcbAssignStaffFood.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(null, "MUST Select a Area to Assign", "Area Missing", JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -681,7 +685,7 @@ public class WorkloadAssignmentDriver extends JFrame {
             JOptionPane.showMessageDialog(null, "Name textfield must fillup", "Name Missing", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        if (jtfAssignStaffStatus.getText().equals("") && jtfAssignStaffRequestTask.getText().equals("")) {
+        if (jtfAssignStaffStatus.getText().equals("") && jtfStaffAddress.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please search the staff which is in the list", "Data Missing", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
@@ -691,20 +695,20 @@ public class WorkloadAssignmentDriver extends JFrame {
 
     public boolean TaskValidation(Staff staff) {
         boolean valid = false;
-        for (int l = 0; l < stafflist.getNumberOfEntries(); l++) {
-            if (staff.getName().equals(stafflist.getAllStaff()[l].getName())) {
-                for (int i = 0; i < stafflist.getAllStaff()[l].getRequestTask().length; i++) {
-                    if (stafflist.getAllStaff()[l].getRequestTask()[i] == (jcbAssignStaffTask.getSelectedIndex() + 1)) {
-                        return true;
-                    }
-                }
-            }
-        }
+//        for (int l = 0; l < stafflist.getNumberOfEntries(); l++) {
+//            if (staff.getName().equals(stafflist.getAllStaff()[l].getName())) {
+//                for (int i = 0; i < stafflist.getAllStaff()[l].getRequestTask().length; i++) {
+//                    if (stafflist.getAllStaff()[l].getRequestTask()[i] == (jcbAssignStaffTask.getSelectedIndex() + 1)) {
+//                        return true;
+//                    }
+//                }
+//            }
+//        }
         return valid;
     }
 
     public static void main(String[] args) {
         // TODO code application logic here
-        new WorkloadAssignmentDriver();
+        new DeliveryManManage();
     }
 }

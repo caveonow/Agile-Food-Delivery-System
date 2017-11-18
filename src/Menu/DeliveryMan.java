@@ -5,14 +5,14 @@ package Menu;
  */
 import Menu.Staff;
 
-public class WorkloadAssignment<T> implements WorkloadAssignmentInterface<T> {
+public class DeliveryMan<T> implements DeliveryManInterface<T> {
 
     private Node StaffFirstNode; // reference to first node of staff
     private Node ReportFirstNode;// reference to first node of report
     private int numberOfEntries;// number of entries in list
     private int numberOfAssigned;// number of staff have assigned task  in list
 
-    public WorkloadAssignment() {
+    public DeliveryMan() {
         clear();
     }
 
@@ -26,13 +26,13 @@ public class WorkloadAssignment<T> implements WorkloadAssignmentInterface<T> {
             Staff existedStaff = (Staff) currentNode.data;
             Staff newStaff = (Staff) newNode.data;
 
-            while (currentNode != null && newStaff.getTotalTaskLevel() >= existedStaff.getTotalTaskLevel()) {
-                nodeBefore = currentNode;
-                currentNode = currentNode.next;
-                if (currentNode != null) {
-                    existedStaff = (Staff) currentNode.data;
-                }
-            }
+//            while (currentNode != null && newStaff.getTotalTaskLevel() >= existedStaff.getTotalTaskLevel()) {
+//                nodeBefore = currentNode;
+//                currentNode = currentNode.next;
+//                if (currentNode != null) {
+//                    existedStaff = (Staff) currentNode.data;
+//                }
+//            }
         }
         if (isEmpty() || (nodeBefore == null)) { // CASE 1: add at beginning if (isEmpty() || (nodeBefore == null)) {
             newNode.next = StaffFirstNode;
@@ -51,12 +51,12 @@ public class WorkloadAssignment<T> implements WorkloadAssignmentInterface<T> {
 
         Staff existedStaff = (Staff) currentNode.data;
 
-        while (currentNode != null && existedStaff.getTotalTaskLevel() < (task+1)) {// find the node with the entry data
-            currentNode = currentNode.next;
-            if (currentNode != null) {
-                existedStaff = (Staff) currentNode.data;
-            }
-        }
+//        while (currentNode != null && existedStaff.getTotalTaskLevel() < (task+1)) {// find the node with the entry data
+//            currentNode = currentNode.next;
+//            if (currentNode != null) {
+//                existedStaff = (Staff) currentNode.data;
+//            }
+//        }
         while (currentNode != null && !existedStaff.getStatus().equals("Pending")) {
             currentNode = currentNode.next;
             if (currentNode != null) {

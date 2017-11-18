@@ -5,7 +5,7 @@ package Menu;
  */
 import Menu.Staff;
 
-public interface WorkloadAssignmentInterface <T> {
+public interface DeliveryManInterface <T> {
     public void addStaff(T data); //the method of add new staff in the staff list 
     public T[] getAllStaff(); // the method to get all staff who register
     public T[] getAssginedStaff(); // the method to get all staff who had assign to work or completed the task
