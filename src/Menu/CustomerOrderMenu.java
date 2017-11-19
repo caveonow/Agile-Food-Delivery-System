@@ -5,15 +5,15 @@
  */
 package Menu;
 
-import javax.swing.JCheckBox;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
  * @author caveon
  */
-public class CustomerOrderMenu extends javax.swing.JPanel {
-   
-    
+public class CustomerOrderMenu extends javax.swing.JPanel { 
     /**
      * Creates new form NewJPanel
      */
@@ -56,20 +56,20 @@ public class CustomerOrderMenu extends javax.swing.JPanel {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Chicken Rice", "Rice, Checken", "12.80",  new Integer(1),  new Boolean(true)},
-                {"Roti Canai", "Flour, Egg, Curry", "2.50",  new Integer(1),  new Boolean(true)},
-                {"Tea", "Tea, Hot Water", "1.80",  new Integer(2),  new Boolean(true)},
-                {"Ice Kacang", "Shaved Ice, Syrup, Cendol, Red Bean", "5.50", null, null}
+                {"Chicken Rice", "Rice, Checken",  new Double(1.0),  new Integer(1), null},
+                {"Roti Canai", "Flour, Egg, Curry",  new Double(1.0),  new Integer(1), null},
+                {"Tea", "Tea, Hot Water",  new Double(1.0),  new Integer(2), null},
+                {"Ice Kacang", "Shaved Ice, Syrup, Cendol, Red Bean",  new Double(1.0),  new Integer(0), null}
             },
             new String [] {
-                "Menu", "Description", "Single Price", "Quantity", "Check"
+                "Menu", "Description", "Single Price", "Quantity", "Sub Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, true, true
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -83,12 +83,12 @@ public class CustomerOrderMenu extends javax.swing.JPanel {
         jTable2.setToolTipText("");
         jScrollPane1.setViewportView(jTable2);
         if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(2).setPreferredWidth(18);
-            jTable2.getColumnModel().getColumn(2).setCellEditor(null);
+            jTable2.getColumnModel().getColumn(2).setResizable(false);
+            jTable2.getColumnModel().getColumn(2).setPreferredWidth(20);
             jTable2.getColumnModel().getColumn(3).setResizable(false);
-            jTable2.getColumnModel().getColumn(3).setPreferredWidth(40);
+            jTable2.getColumnModel().getColumn(3).setPreferredWidth(15);
             jTable2.getColumnModel().getColumn(4).setResizable(false);
-            jTable2.getColumnModel().getColumn(4).setPreferredWidth(6);
+            jTable2.getColumnModel().getColumn(4).setPreferredWidth(20);
         }
 
         jButton1.setText("Payment");
@@ -171,8 +171,29 @@ public class CustomerOrderMenu extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void PaymentButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentButton
-               new CustomerPayment().setSize(400, 375);
-               setVisible(false);
+        TableModel model1 = jTable2.getModel();
+        //int indexs[] = jTable2.getSelectedRows();
+        int nRow = jTable2.getRowCount();
+        Object[] row = new Object[4];
+        
+        CustomerPayment cuspay = new CustomerPayment();
+        DefaultTableModel model2 = (DefaultTableModel)cuspay.paymentTable.getModel();
+        
+        for(int i = 0; i < nRow; i++){
+            int qtyValue = (int) model1.getValueAt(i, 3);
+            
+            if (qtyValue > 0){
+                row[0] = model1.getValueAt(i, 0);
+                row[1] = model1.getValueAt(i, 1);
+                row[2] = model1.getValueAt(i, 2);
+                row[3] = model1.getValueAt(i, 3);
+          
+            model2.addRow(row);
+            }
+        }
+        
+               //new CustomerPayment().setSize(400, 375);
+               cuspay.setVisible(true);
     }//GEN-LAST:event_PaymentButton
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
@@ -193,4 +214,5 @@ public class CustomerOrderMenu extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
+
 }
