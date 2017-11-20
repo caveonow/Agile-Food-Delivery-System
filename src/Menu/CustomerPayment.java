@@ -16,6 +16,7 @@ public class CustomerPayment extends javax.swing.JFrame {
      */
     public CustomerPayment() {
         initComponents();
+        setDefaultCloseOperation(CustomerPayment.DISPOSE_ON_CLOSE);
     }
 
     /**
