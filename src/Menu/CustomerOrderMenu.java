@@ -5,8 +5,13 @@
  */
 package Menu;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 /**
@@ -14,11 +19,20 @@ import javax.swing.table.TableModel;
  * @author caveon
  */
 public class CustomerOrderMenu extends javax.swing.JPanel { 
-    /**
-     * Creates new form NewJPanel
-     */
+    
+    private JComboBox jQtyBox;
+    
     public CustomerOrderMenu() {
-        initComponents();      
+        initComponents();
+        String[] qtyData = {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"};
+        jQtyBox = new JComboBox();
+            for (int i = 0; i < qtyData.length; i ++){
+                jQtyBox.addItem(qtyData[i]);
+            }
+        TableColumn tc = jTable2.getColumnModel().getColumn(3);
+        TableCellEditor tce = new DefaultCellEditor(jQtyBox);
+        tc.setCellEditor(tce);
+        jQtyBox.setSelectedIndex(0);
     }
     
     /**
@@ -56,20 +70,20 @@ public class CustomerOrderMenu extends javax.swing.JPanel {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Chicken Rice", "Rice, Checken",  new Double(1.0),  new Integer(1), null},
-                {"Roti Canai", "Flour, Egg, Curry",  new Double(1.0),  new Integer(1), null},
-                {"Tea", "Tea, Hot Water",  new Double(1.0),  new Integer(2), null},
-                {"Ice Kacang", "Shaved Ice, Syrup, Cendol, Red Bean",  new Double(1.0),  new Integer(0), null}
+                {"Chicken Rice", "Rice, Checken",  new Double(1.0), null, null},
+                {"Roti Canai", "Flour, Egg, Curry",  new Double(1.0), null, null},
+                {"Tea", "Tea, Hot Water",  new Double(1.0), null, null},
+                {"Ice Kacang", "Shaved Ice, Syrup, Cendol, Red Bean",  new Double(1.0), null, null}
             },
             new String [] {
                 "Menu", "Description", "Single Price", "Quantity", "Sub Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.String.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -180,9 +194,10 @@ public class CustomerOrderMenu extends javax.swing.JPanel {
         DefaultTableModel model2 = (DefaultTableModel)cuspay.paymentTable.getModel();
         
         for(int i = 0; i < nRow; i++){
-            int qtyValue = (int) model1.getValueAt(i, 3);
+            String qtyValue =  (String) model1.getValueAt(i, 3);
+            int qtyValueConv = Integer.parseInt(qtyValue);
             
-            if (qtyValue > 0){
+            if (qtyValueConv > 0){
                 row[0] = model1.getValueAt(i, 0);
                 row[1] = model1.getValueAt(i, 1);
                 row[2] = model1.getValueAt(i, 2);
