@@ -187,6 +187,11 @@ public class CustomerProfileMenu extends javax.swing.JPanel {
         jLabel12.setText("Customer Email");
 
         jButton3.setText("Update");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
@@ -323,10 +328,21 @@ public class CustomerProfileMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        customer.getCust(jComboBox1.getSelectedIndex()+1);
-        
+        ArrayList arraylist = new ArrayList();
+        arraylist = customer.getCust(jComboBox1.getSelectedItem().toString());
+               
+            jTextField7.setText(arraylist.get(0).toString());
+            jTextField8.setText(arraylist.get(1).toString());
+            jTextArea2.setText(arraylist.get(2).toString());
+            jTextField9.setText(arraylist.get(3).toString());
+            jTextField10.setText(arraylist.get(4).toString());
+     
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       customer.updateCustomer(jComboBox1.getSelectedItem().toString(), jTextField7.getText(), jTextField8.getText(), jTextArea2.getText(), jTextField9.getText(), jTextField10.getText(), "Y");
+       JOptionPane.showMessageDialog(null, "Customer Account Has Been Updated", "Update Message", JOptionPane.INFORMATION_MESSAGE);      
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void addElement() {
         ArrayList arraylist = new ArrayList();
@@ -334,10 +350,9 @@ public class CustomerProfileMenu extends javax.swing.JPanel {
         
         for(int i=0; i<arraylist.size();i++){
             model.addElement(arraylist.get(i).toString());
-
         }
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddCustBtn;
     public javax.swing.JTextField CCustID;

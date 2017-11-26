@@ -71,27 +71,54 @@ public class Customer<T> implements CustomerInterface<T> {
         return array;
     }
     
-     public void getCust(T custID){
+     public ArrayList getCust(T custID){
         String Str = "SELECT * from customer where customerid = ? ";
-        
+        ArrayList array = new ArrayList();
         try {
             
             stmt = conn.prepareStatement(Str);
-            stmt.setString(1, (String) (custID));
+            stmt.setString(1, String.valueOf(custID));  
             rs = stmt.executeQuery();
            
             while (rs.next()) {            
-                T newT1 = (T)(Object)rs.getString(2);
+/*                T newT1 = (T)(Object)rs.getString(2);
                 T newT2 = (T)(Object)rs.getString(3);
                 T newT3 = (T)(Object)rs.getString(4);
                 T newT4 = (T)(Object)rs.getString(5);
-                T newT5 = (T)(Object)rs.getString(6);
+                T newT5 = (T)(Object)rs.getString(6);*/
+                array.add(rs.getString(2));
+                array.add(rs.getString(3));
+                array.add(rs.getString(4));
+                array.add(rs.getString(5));
+                array.add(rs.getString(6));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+        
+        return array;
+    }  
+     
+     public boolean updateCustomer(T custID, T custName, T custICNo, T custAddress, T custPhoneNo, T custEmail, T custStatus){
+        String Str = "Update Customer SET CUSTOMERNAME = ? , CUSTOMERICNO = ? , CUSTOMERADDRESS = ?, CUSTOMERPHONENO = ?, CUSTOMEREMAIL = ?, CUSTOMERSTATUS = ? WHERE CUSTOMERID = ?";
+        
+        int temp = 0;
+        try{
+            PreparedStatement ps = conn.prepareStatement(Str,Statement.RETURN_GENERATED_KEYS);            
+            ps.setString(1, String.valueOf(custName));
+            ps.setString(2, String.valueOf(custICNo));
+            ps.setString(3, String.valueOf(custAddress));
+            ps.setString(4, String.valueOf(custPhoneNo));
+            ps.setString(5, String.valueOf(custEmail));
+            ps.setString(6, String.valueOf(custStatus));
+            ps.setString(7, String.valueOf(custID));
+            ps.executeUpdate();
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return false;    
     }
-    
     
     
     private void createConnection() {

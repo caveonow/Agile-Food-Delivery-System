@@ -15,5 +15,6 @@ public interface CustomerInterface<T> {
       
     public boolean addCustomer(T question, T a, T b, T c, T d, T answer, T questType);
     public ArrayList getAllCustomer();
-    public void getCust(T custID);
+    public ArrayList getCust(T custID);
+    public boolean updateCustomer(T question, T a, T b, T c, T d, T answer, T questType);
 }

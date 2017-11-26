@@ -142,7 +142,12 @@
                   <Data value="1.0"/>
                 </Column>
                 <Column editable="true" title="Quantity" type="java.lang.String"/>
-                <Column editable="false" title="Sub Total" type="java.lang.Double"/>
+                <Column editable="false" title="Sub Total" type="java.lang.Double">
+                  <Data value="6.5"/>
+                  <Data value="1.5"/>
+                  <Data value="1.8"/>
+                  <Data value="3.0"/>
+                </Column>
               </Table>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>

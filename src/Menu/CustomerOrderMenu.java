@@ -67,10 +67,10 @@ public class CustomerOrderMenu extends javax.swing.JPanel {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Chicken Rice", "Rice, Checken",  new Double(1.0), null, null},
-                {"Roti Canai", "Flour, Egg, Curry",  new Double(1.0), null, null},
-                {"Tea", "Tea, Hot Water",  new Double(1.0), null, null},
-                {"Ice Kacang", "Shaved Ice, Syrup, Cendol, Red Bean",  new Double(1.0), null, null}
+                {"Chicken Rice", "Rice, Checken",  new Double(1.0), null,  new Double(6.5)},
+                {"Roti Canai", "Flour, Egg, Curry",  new Double(1.0), null,  new Double(1.5)},
+                {"Tea", "Tea, Hot Water",  new Double(1.0), null,  new Double(1.8)},
+                {"Ice Kacang", "Shaved Ice, Syrup, Cendol, Red Bean",  new Double(1.0), null,  new Double(3.0)}
             },
             new String [] {
                 "Menu", "Description", "Single Price", "Quantity", "Sub Total"
