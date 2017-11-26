@@ -133,7 +133,7 @@ public class CustomerMainMenu extends JFrame{
     }
     public static void main(String[] args) {
         maintainPage = new CustomerMainMenu();
-        maintainPage.setSize(1000, 375);
+        maintainPage.setSize(900, 375);
     }
     
 }
