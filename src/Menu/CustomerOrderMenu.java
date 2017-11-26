@@ -25,14 +25,11 @@ public class CustomerOrderMenu extends javax.swing.JPanel {
     public CustomerOrderMenu() {
         initComponents();
         String[] qtyData = {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"};
-        jQtyBox = new JComboBox();
-            for (int i = 0; i < qtyData.length; i ++){
-                jQtyBox.addItem(qtyData[i]);
-            }
+        jQtyBox = new JComboBox(qtyData);
         TableColumn tc = jTable2.getColumnModel().getColumn(3);
         TableCellEditor tce = new DefaultCellEditor(jQtyBox);
         tc.setCellEditor(tce);
-        jQtyBox.setSelectedIndex(0);
+        
     }
     
     /**
@@ -133,7 +130,7 @@ public class CustomerOrderMenu extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -152,10 +149,10 @@ public class CustomerOrderMenu extends javax.swing.JPanel {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(14, 14, 14)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(180, 180, 180)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(195, Short.MAX_VALUE))
+                .addGap(226, 226, 226))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,6 +191,7 @@ public class CustomerOrderMenu extends javax.swing.JPanel {
         DefaultTableModel model2 = (DefaultTableModel)cuspay.paymentTable.getModel();
         
         for(int i = 0; i < nRow; i++){
+            if (model1.getValueAt(i, 3) != null){
             String qtyValue =  (String) model1.getValueAt(i, 3);
             int qtyValueConv = Integer.parseInt(qtyValue);
             
@@ -206,7 +204,7 @@ public class CustomerOrderMenu extends javax.swing.JPanel {
             model2.addRow(row);
             }
         }
-        
+        }  
                //new CustomerPayment().setSize(400, 375);
                cuspay.setVisible(true);
     }//GEN-LAST:event_PaymentButton
