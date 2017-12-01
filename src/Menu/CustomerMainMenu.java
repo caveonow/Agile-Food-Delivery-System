@@ -68,7 +68,9 @@ public class CustomerMainMenu extends JFrame{
         p1 = new JPanel();
         p1.add(new CustomerOrderMenu());
         p2 = new JPanel();
+        p2.add(new CustomerOrderHistory());
         p3 = new JPanel();
+        p3.add(new CustomerProfileMenu());
         
         
         combination = new JPanel(new BorderLayout());
@@ -113,7 +115,6 @@ public class CustomerMainMenu extends JFrame{
             }
             
             else if(e.getSource() == jbtCustomerHistory) {
-                p2.add(new CustomerOrderHistory());
                 jbtCustomerHistory.setForeground(Color.red);
                 buttonSet.setSize(800, 75);
                 getContentPane().add(p2,BorderLayout.CENTER);
@@ -121,7 +122,6 @@ public class CustomerMainMenu extends JFrame{
             }
             
             else if(e.getSource() == jbtCustomerProfile) {
-                p3.add(new CustomerProfileMenu());
                 jbtCustomerProfile.setForeground(Color.red);
                 buttonSet.setSize(800, 75);
                 getContentPane().add(p3,BorderLayout.CENTER);

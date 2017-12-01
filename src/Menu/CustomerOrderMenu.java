@@ -5,6 +5,7 @@
  */
 package Menu;
 
+import Class.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.DefaultCellEditor;

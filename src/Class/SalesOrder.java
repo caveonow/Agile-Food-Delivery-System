@@ -5,74 +5,54 @@
  */
 package Class;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author caveon
  */
 public class SalesOrder {
-    String Sales_OrderID;
-    String RestID;
-    String CustID;
-    String DeliverAddress;
-    Double Distance;
-    Date   SalesOrder_Cdate;
-    String Sales_OrderStatus;
-
-    public String getSales_OrderID() {
-        return Sales_OrderID;
+   
+    private String host = "jdbc:derby://localhost:1527/FoodDeliverySystem";
+    private String user = "FDSYS";
+    private String password = "FDSYS";
+    private Connection conn;
+    private PreparedStatement stmt;
+    private ResultSet rs;
+    
+    public SalesOrder(){
+        createConnection();
     }
-
-    public void setSales_OrderID(String Sales_OrderID) {
-        this.Sales_OrderID = Sales_OrderID;
+    
+    public ArrayList getAllSalesOrder() {
+        String Str = "SELECT * from customer";
+        ArrayList array = new ArrayList();
+        
+        try {
+            stmt = conn.prepareStatement(Str);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                array.add(rs.getString(1));
+            }
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return array;
     }
-
-    public String getRestID() {
-        return RestID;
-    }
-
-    public void setRestID(String RestID) {
-        this.RestID = RestID;
-    }
-
-    public String getCustID() {
-        return CustID;
-    }
-
-    public void setCustID(String CustID) {
-        this.CustID = CustID;
-    }
-
-    public String getDeliverAddress() {
-        return DeliverAddress;
-    }
-
-    public void setDeliverAddress(String DeliverAddress) {
-        this.DeliverAddress = DeliverAddress;
-    }
-
-    public Double getDistance() {
-        return Distance;
-    }
-
-    public void setDistance(Double Distance) {
-        this.Distance = Distance;
-    }
-
-    public Date getSalesOrder_Cdate() {
-        return SalesOrder_Cdate;
-    }
-
-    public void setSalesOrder_Cdate(Date SalesOrder_Cdate) {
-        this.SalesOrder_Cdate = SalesOrder_Cdate;
-    }
-
-    public String getSales_OrderStatus() {
-        return Sales_OrderStatus;
-    }
-
-    public void setSales_OrderStatus(String Sales_OrderStatus) {
-        this.Sales_OrderStatus = Sales_OrderStatus;
+    
+    private void createConnection() {
+        try {
+            conn = DriverManager.getConnection(host, user, password);
+            System.out.println("***TRACE: Connection established.");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
