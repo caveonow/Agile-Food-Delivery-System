@@ -13,6 +13,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
 import Menu.DeliveryManInterface;
+import javax.swing.text.MaskFormatter;
 
 public class DeliveryManManage extends JFrame {
 
@@ -35,16 +36,18 @@ public class DeliveryManManage extends JFrame {
     //JLabel
     private JLabel jlbStaffName = new JLabel("Name :");
     private JLabel jlbStaffContactNo = new JLabel("Contact No. :");
+    private JLabel jlbStaffEmail = new JLabel("Email :");
     private JLabel jlbStaffGender = new JLabel("Gender :");
     private JLabel jlbStaffIc = new JLabel("IC :");
-    private JLabel jlbStaffStatus = new JLabel("Task Status :");
+//    private JLabel jlbStaffStatus = new JLabel("Task Status :");
     private JLabel jlbStaffAddress = new JLabel("Address");
     private JLabel jlbAreaAssign = new JLabel("Area Assign :");
-    private JLabel jlbNoOfStaffAssign = new JLabel("Number Of Staff Assign :");
+    private JLabel jlbNoOfStaffAssign = new JLabel("Number Of Delivery Man Assign :");
     //JTextField
     private JTextField jtfStaffName = new JTextField("");
     private JTextField jtfStaffContactNo = new JTextField("", 11);
-    private JTextField jtfStaffStatus = new JTextField("Pending");
+    private JTextField jtfStaffEmail = new JTextField("");
+    private JTextField jtfStaffStatus = new JTextField("Available");
     private JTextField jtfStaffIC = new JTextField("", 14);
     private JTextField jtfStaffAddress = new JTextField("");
     //JModel
@@ -63,7 +66,7 @@ public class DeliveryManManage extends JFrame {
     private JButton jbtRegister = new JButton("Register");
     private JButton jbtClear = new JButton("Clear");
     //JTable1
-    Object[] columns = {"Staff Name", "Contact No", "Gender", "Ic", "Address"};
+    Object[] columns = {"DeliveryMan Name", "Contact No", "Gender", "Ic", "Address"};
     Object[] row = new Object[6];
     DefaultTableModel model = new DefaultTableModel();
     JTable staffTable = new JTable();
@@ -83,11 +86,12 @@ public class DeliveryManManage extends JFrame {
     private JTextField jtfAssignStaffStatus = new JTextField();
 //    private JTextField jtfAssignStaffRequestTask = new JTextField();
     //JModel
-    private DefaultComboBoxModel locationModel = new DefaultComboBoxModel();
+    private DefaultComboBoxModel StartlocationModel = new DefaultComboBoxModel();
+    private DefaultComboBoxModel EndlocationModel = new DefaultComboBoxModel();
     private DefaultComboBoxModel foodSetModel = new DefaultComboBoxModel();
     //JCombobox
-    private JComboBox jcbAssignStaffDepartLocation = new JComboBox(locationModel);
-    private JComboBox jcbAssignStaffDestinationLocation = new JComboBox(locationModel);
+    private JComboBox jcbAssignStaffDepartLocation = new JComboBox(StartlocationModel);
+    private JComboBox jcbAssignStaffDestinationLocation = new JComboBox(EndlocationModel);
     private JComboBox jcbAssignStaffFood = new JComboBox(foodSetModel);
     //JButton  
     private JButton jbtAssign = new JButton("Assign");
@@ -95,7 +99,7 @@ public class DeliveryManManage extends JFrame {
     private JButton jbtReject = new JButton("Reject");
     private JButton jbtGenerateReport = new JButton("Generate Report");
     //JTabel2
-    Object[] columns2 = {"Staff Name", "Contact No", "Gender", "Ic", "Status", "Address"};
+    Object[] columns2 = {"DeliveryMan Name", "Contact No", "Gender", "Ic", "Status", "Address"};
     Object[] row2 = new Object[6];
     DefaultTableModel model2 = new DefaultTableModel();
     JTable staffTable2 = new JTable();
@@ -130,9 +134,9 @@ public class DeliveryManManage extends JFrame {
         staffTable.getTableHeader().setFont(LabelFont);
         staffTable.setRowHeight(27);
 
-        TitledBorder tb1 = new TitledBorder("Enter Staff Details");
+        TitledBorder tb1 = new TitledBorder("Enter DeliveryMan Details");
         tb1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        TitledBorder tb2 = new TitledBorder("Staff Details Lists");
+        TitledBorder tb2 = new TitledBorder("DeliveryMan Details Lists");
         tb2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         JPanel staffMainPanel = new JPanel(new BorderLayout());
@@ -172,6 +176,11 @@ public class DeliveryManManage extends JFrame {
         staffFormSubSubPanel.add(jtfStaffContactNo);
         jtfStaffContactNo.setFont(jtfFont);
         jtfStaffContactNo.setBackground(Color.white);
+        staffFormSubSubPanel.add(jlbStaffEmail);
+        jlbStaffEmail.setFont(LabelFont);
+        staffFormSubSubPanel.add(jtfStaffEmail);
+        jtfStaffEmail.setFont(jtfFont);
+        jtfStaffEmail.setBackground(Color.white);
         staffFormSubSubPanel.add(jlbStaffGender);
         jlbStaffGender.setFont(LabelFont);
         staffFormSubSubPanel.add(staffGenderPanel);
@@ -188,12 +197,12 @@ public class DeliveryManManage extends JFrame {
         staffFormSubSubPanel.add(jlbStaffIc);
         jlbStaffIc.setFont(LabelFont);
         staffFormSubSubPanel.add(jtfStaffIC);
-        staffFormSubSubPanel.add(jlbStaffStatus);
-        jlbStaffIc.setFont(LabelFont);
-        staffFormSubSubPanel.add(jtfStaffStatus);
-        jtfStaffStatus.setFont(jtfFont);
-        jtfStaffStatus.setBackground(Color.white);
-        jtfStaffStatus.setEditable(false);
+//        staffFormSubSubPanel.add(jlbStaffStatus);
+//        jlbStaffIc.setFont(LabelFont);
+//        staffFormSubSubPanel.add(jtfStaffStatus);
+//        jtfStaffStatus.setFont(jtfFont);
+//        jtfStaffStatus.setBackground(Color.white);
+//        jtfStaffStatus.setEditable(false);
         staffFormSubSubPanel.add(jlbStaffAddress);
         staffFormSubSubPanel.add(jtfStaffAddress);
         jtfStaffAddress.setFont(jtfFont);
@@ -262,16 +271,17 @@ public class DeliveryManManage extends JFrame {
         staffTable2.getTableHeader().setFont(LabelFont);
         staffTable2.setRowHeight(27);
 
-        initializeLocationModel();
+        StartinitializeLocationModel();
+        EndinitializeLocationModel();
         initializeFoodSetModel();
         initializeStatusModel();
 //        jcbAssignStaffTask.setSelectedItem(null);
         jcbAssignStaffDepartLocation.setSelectedItem(null);
         jcbAssignStaffDestinationLocation.setSelectedItem(null);
         jcbAssignStaffFood.setSelectedItem(null);
-        TitledBorder tb3 = new TitledBorder("Staff Work Lists");
+        TitledBorder tb3 = new TitledBorder("DeliveryMan Work Lists");
         tb1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        TitledBorder tb4 = new TitledBorder("Assign Staff Details");
+        TitledBorder tb4 = new TitledBorder("Assign DeliveryMan Details");
         tb2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         taskAssignmentMainPanel.add(staffTopPanel, BorderLayout.NORTH);
@@ -328,7 +338,7 @@ public class DeliveryManManage extends JFrame {
         staffAssignFormSubSubPanel.add(jlbAssignFood);
         jlbAssignFood.setFont(LabelFont);
         staffAssignFormSubSubPanel.add(jcbAssignStaffFood);
-        
+
         staffAssignFormSubSubPanel.setPreferredSize(new Dimension(600, 0));
 
         staffAssignFormSubPanel.add(staffAssignButtonPanel);
@@ -398,7 +408,7 @@ public class DeliveryManManage extends JFrame {
 
         //Staff Panel
         //End of Staff Panel
-        tabbebPanel.addTab("Staff Registration", staffRegistrerMainPanel);
+        tabbebPanel.addTab("DeliveryMan Registration", staffRegistrerMainPanel);
         tabbebPanel.addTab("Task Area", taskAssignmentMainPanel);
         tabbebPanel.setFont(tabFont);
         tabbebPanel.setBackground(Color.getHSBColor(178, 34, 34));
@@ -424,10 +434,37 @@ public class DeliveryManManage extends JFrame {
                 if (RegisterValidation()) {
                     String name = jtfStaffName.getText();
                     String contactNo = jtfStaffContactNo.getText();
+                    String email = jtfStaffEmail.getText();
                     String gender = bgGender.getSelection().getActionCommand();
                     String ic = jtfStaffIC.getText();
                     String status = jtfStaffStatus.getText();
                     String address = jtfStaffAddress.getText();
+
+                    
+                    if (!contactNo.matches("\\d{3}-\\d{7}")) {
+                        JOptionPane.showMessageDialog(null, "Invalid contact number, please insert contact number as format XXX-XXXXXXX");
+                        jtfStaffContactNo.setText("");
+                    } else if (!email.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
+                        JOptionPane.showMessageDialog(null, "Invalid email, please insert a correct email address");
+                        jtfStaffEmail.setText("");
+                    } else if (!ic.matches("\\d{6}-\\d{2}-\\d{4}")) {
+                        JOptionPane.showMessageDialog(null, "Not a valid IC, please enter as XXXXXX-XX-XXXX");
+                        jtfStaffIC.setText("");
+                    
+                    } else {
+                        Staff s = new Staff(name, contactNo, email, gender, ic, status, address);
+                        stafflist.addStaff(s);
+                        row[0] = s.getName();
+                        row[1] = s.getContactNo();
+                        row[2] = s.getEmail();
+                        row[3] = s.getGender();
+                        row[4] = s.getIc();
+                        row[5] = s.getAddress();
+                        model.addRow(row);
+                        DisplayStaffWorkList();
+                        JOptionPane.showMessageDialog(null, "New Delivery man registered: \n"
+                                + "Name: " + name);
+                    }
 
 //                    int[] requestTask = {0, 0, 0};
 //                    int i = 0;
@@ -441,15 +478,6 @@ public class DeliveryManManage extends JFrame {
 //                        requestTask[i] = 3;
 //                        i++;
 //                    }
-                    Staff s = new Staff(name, contactNo, gender, ic, status, address);
-                    stafflist.addStaff(s);
-                    row[0] = s.getName();
-                    row[1] = s.getContactNo();
-                    row[2] = s.getGender();
-                    row[3] = s.getIc();
-                    row[4] = s.getAddress();
-                    model.addRow(row);
-                    DisplayStaffWorkList();
                 }
             }
         });
@@ -461,7 +489,7 @@ public class DeliveryManManage extends JFrame {
 
                 for (int l = 0; l < stafflist.getNumberOfEntries(); l++) {
                     if (staffName.equals(stafflist.getAllStaff()[l].getName())) {
-                        if (!stafflist.getAllStaff()[l].getStatus().equals("Pending")) {
+                        if (!stafflist.getAllStaff()[l].getStatus().equals("Available")) {
                             for (int i = 0; i < stafflist.getNumberOfAssigned(); i++) {
                                 if (staffName.equals(stafflist.getAssginedStaff()[i].getName())) {
                                     jtfAssignStaffStatus.setText(stafflist.getAllStaff()[l].getStatus());
@@ -511,7 +539,6 @@ public class DeliveryManManage extends JFrame {
 //                }
 //            }
 //        });
-
         jbtComplete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (CompleteValidation()) {
@@ -524,17 +551,17 @@ public class DeliveryManManage extends JFrame {
                     Date date = new Date();
                     String currentDate = dateFormat.format(date);
 
-                    Staff s = new Staff(name, taskStatus, address, assignTask, assignArea, currentDate);
-                    if (!s.getStatus().equals("Working")) {  //prompt error message if the staff are not working
-                        JOptionPane.showMessageDialog(null, "Task Status are NOT Working", "Staff Status Error", JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        s.setStatus("Complete");
-                        stafflist.completeStaffWork(s);
-                        JOptionPane.showMessageDialog(null, s.getName() + " is complete the work which is " + assignTask, "Staff Complete Work", JOptionPane.INFORMATION_MESSAGE);
-                        stafflist.addAssignmentReport(s);
-                        jtfAssignStaffStatus.setText("Complete");
-                        DisplayStaffWorkList();
-                    }
+//                    Staff s = new Staff(name, taskStatus, address, assignTask, assignArea, currentDate);
+//                    if (!s.getStatus().equals("Working")) {  //prompt error message if the staff are not working
+//                        JOptionPane.showMessageDialog(null, "Task Status are NOT Working", "DeliveryMan Status Error", JOptionPane.ERROR_MESSAGE);
+//                    } else {
+//                        s.setStatus("Complete");
+//                        stafflist.completeStaffWork(s);
+//                        JOptionPane.showMessageDialog(null, s.getName() + " is complete the work which is " + assignTask, "DeliveryMan Complete Work", JOptionPane.INFORMATION_MESSAGE);
+//                        stafflist.addAssignmentReport(s);
+//                        jtfAssignStaffStatus.setText("Complete");
+//                        DisplayStaffWorkList();
+//                    }
                 }
             }
         });
@@ -555,7 +582,7 @@ public class DeliveryManManage extends JFrame {
                         DisplayStaffWorkList();
 //                        JOptionPane.showMessageDialog(null, "Staff Had Be Rejected \nName : " + s.getName(),
 //                                "Rejected Staff", JOptionPane.INFORMATION_MESSAGE);
-                        JOptionPane.showMessageDialog(null, "Staff Had Be Rejected \nName : ",
+                        JOptionPane.showMessageDialog(null, "DeliveryMan Had Be Rejected \nName : ",
                                 "Rejected Staff", JOptionPane.INFORMATION_MESSAGE);
                         jtfAssignStaffName.setText("");
                         jtfAssignStaffStatus.setText("");
@@ -589,11 +616,18 @@ public class DeliveryManManage extends JFrame {
         statusModel.addElement("Unemployed");
     }
 
-    private void initializeLocationModel() {
-        locationModel.addElement("Selangor(L1)");
-        locationModel.addElement("Kuala Lumpur(L2)");
-        locationModel.addElement("Seremban(L3)");
-        locationModel.addElement("Penang(L4)");
+    private void StartinitializeLocationModel() {
+        StartlocationModel.addElement("Selangor(L1)");
+        StartlocationModel.addElement("Kuala Lumpur(L2)");
+        StartlocationModel.addElement("Seremban(L3)");
+        StartlocationModel.addElement("Penang(L4)");
+    }
+
+    private void EndinitializeLocationModel() {
+        EndlocationModel.addElement("Selangor(L1)");
+        EndlocationModel.addElement("Kuala Lumpur(L2)");
+        EndlocationModel.addElement("Seremban(L3)");
+        EndlocationModel.addElement("Penang(L4)");
     }
 
     private void initializeFoodSetModel() {

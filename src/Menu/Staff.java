@@ -1,4 +1,5 @@
 package Menu;
+
 /**
  *
  * @author Oon Bing Jie
@@ -10,6 +11,8 @@ public class Staff {
     private String id; //Staff id
     private String name; // Staff name
     private String contactNo; // Staff contact number
+    private String email; //Staff email address
+
     private String gender; // Staff gender
     private String ic; // Staff ic
     private String status; // Staff task status
@@ -19,9 +22,10 @@ public class Staff {
     private String assignArea; // Staff assigned area
     private String currentDate; // Current date
 
-    public Staff(String name, String contactNo, String gender, String ic, String status, String address) { //for register new staff details
+    public Staff(String name, String contactNo, String email, String gender, String ic, String status, String address) { //for register new staff details
         this.name = name;
         this.contactNo = contactNo;
+        this.email = email;
         this.gender = gender;
         this.ic = ic;
         this.status = status;
@@ -37,13 +41,11 @@ public class Staff {
 //        this.assignArea = assignArea;
 //        this.currentDate = currentDate;
 //    }
-    
 //    public Staff(String name, String status, String assignRequestTask) { // for reject staff
 //        this.name = name;
 //        this.status = status;
 //        this.requestTask = requestTask;
 //    }
-
     public String getName() {
         return name;
     }
@@ -58,6 +60,14 @@ public class Staff {
 
     public void setContactNo(String contactNo) {
         this.contactNo = contactNo;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getGender() {
@@ -99,7 +109,6 @@ public class Staff {
 //    public void setAssignTask(int assignTask) {
 //        this.assignTask = assignTask;
 //    }
-
     public String getAssignFood() {
         return assignArea;
     }
@@ -123,8 +132,7 @@ public class Staff {
     public void setCurrentDate(String currentDate) {
         this.currentDate = currentDate;
     }
-    
-    
+
 //
 //    public int[] getRequestTask() { // get the selected request to do task
 //        int[] rt = new int[3];
@@ -163,7 +171,6 @@ public class Staff {
 //        }
 //        return StrrequestTask;
 //    }
-
     public String getId() {
         return id;
     }
