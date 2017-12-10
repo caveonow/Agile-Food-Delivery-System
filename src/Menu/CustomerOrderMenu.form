@@ -122,7 +122,7 @@
         <Component class="javax.swing.JTable" name="jTable2">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="4">
+              <Table columnCount="4" rowCount="4">
                 <Column editable="false" title="Menu" type="java.lang.Object">
                   <Data value="Chicken Rice"/>
                   <Data value="Roti Canai"/>
@@ -136,18 +136,12 @@
                   <Data value="Shaved Ice, Syrup, Cendol, Red Bean"/>
                 </Column>
                 <Column editable="false" title="Single Price" type="java.lang.Double">
-                  <Data value="1.0"/>
-                  <Data value="1.0"/>
-                  <Data value="1.0"/>
-                  <Data value="1.0"/>
-                </Column>
-                <Column editable="true" title="Quantity" type="java.lang.String"/>
-                <Column editable="false" title="Sub Total" type="java.lang.Double">
                   <Data value="6.5"/>
                   <Data value="1.5"/>
                   <Data value="1.8"/>
                   <Data value="3.0"/>
                 </Column>
+                <Column editable="true" title="Quantity" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -173,15 +167,10 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="20" resizable="false">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
               </TableColumnModel>
             </Property>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+              <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>
           </Properties>
         </Component>

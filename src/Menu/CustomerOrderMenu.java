@@ -29,10 +29,10 @@ public class CustomerOrderMenu extends javax.swing.JPanel {
         jQtyBox = new JComboBox(qtyData);
         TableColumn tc = jTable2.getColumnModel().getColumn(3);
         TableCellEditor tce = new DefaultCellEditor(jQtyBox);
-        tc.setCellEditor(tce);
+        tc.setCellEditor(tce);  
         
     }
-    
+      
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,20 +68,20 @@ public class CustomerOrderMenu extends javax.swing.JPanel {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Chicken Rice", "Rice, Checken",  new Double(1.0), null,  new Double(6.5)},
-                {"Roti Canai", "Flour, Egg, Curry",  new Double(1.0), null,  new Double(1.5)},
-                {"Tea", "Tea, Hot Water",  new Double(1.0), null,  new Double(1.8)},
-                {"Ice Kacang", "Shaved Ice, Syrup, Cendol, Red Bean",  new Double(1.0), null,  new Double(3.0)}
+                {"Chicken Rice", "Rice, Checken",  new Double(6.5), null},
+                {"Roti Canai", "Flour, Egg, Curry",  new Double(1.5), null},
+                {"Tea", "Tea, Hot Water",  new Double(1.8), null},
+                {"Ice Kacang", "Shaved Ice, Syrup, Cendol, Red Bean",  new Double(3.0), null}
             },
             new String [] {
-                "Menu", "Description", "Single Price", "Quantity", "Sub Total"
+                "Menu", "Description", "Single Price", "Quantity"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.String.class, java.lang.Double.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -93,14 +93,13 @@ public class CustomerOrderMenu extends javax.swing.JPanel {
             }
         });
         jTable2.setToolTipText("");
+        jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable2);
         if (jTable2.getColumnModel().getColumnCount() > 0) {
             jTable2.getColumnModel().getColumn(2).setResizable(false);
             jTable2.getColumnModel().getColumn(2).setPreferredWidth(20);
             jTable2.getColumnModel().getColumn(3).setResizable(false);
             jTable2.getColumnModel().getColumn(3).setPreferredWidth(15);
-            jTable2.getColumnModel().getColumn(4).setResizable(false);
-            jTable2.getColumnModel().getColumn(4).setPreferredWidth(20);
         }
 
         jButton1.setText("Payment");
@@ -181,31 +180,33 @@ public class CustomerOrderMenu extends javax.swing.JPanel {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+  
     private void PaymentButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentButton
         TableModel model1 = jTable2.getModel();
         //int indexs[] = jTable2.getSelectedRows();
         int nRow = jTable2.getRowCount();
-        Object[] row = new Object[4];
-        
+        Object[] row = new Object[5];
+        double TotalAmount = 0;
         CustomerPayment cuspay = new CustomerPayment();
         DefaultTableModel model2 = (DefaultTableModel)cuspay.paymentTable.getModel();
         
         for(int i = 0; i < nRow; i++){
             if (model1.getValueAt(i, 3) != null){
             String qtyValue =  (String) model1.getValueAt(i, 3);
-            int qtyValueConv = Integer.parseInt(qtyValue);
+            int qtyValueConv = Integer.parseInt(qtyValue); 
             
             if (qtyValueConv > 0){
                 row[0] = model1.getValueAt(i, 0);
                 row[1] = model1.getValueAt(i, 1);
                 row[2] = model1.getValueAt(i, 2);
                 row[3] = model1.getValueAt(i, 3);
-          
-            model2.addRow(row);
+                row[4] = Double.parseDouble(model1.getValueAt(i, 2).toString()) * Integer.parseInt(model1.getValueAt(i, 3).toString());
+                TotalAmount += Double.parseDouble(model1.getValueAt(i, 2).toString()) * Integer.parseInt(model1.getValueAt(i, 3).toString());
+                model2.addRow(row);
             }
         }
         }  
+                cuspay.setAmount(TotalAmount);
                //new CustomerPayment().setSize(400, 375);
                cuspay.setVisible(true);
     }//GEN-LAST:event_PaymentButton

@@ -10,6 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -17,20 +18,39 @@ import javax.swing.JOptionPane;
  */
 public class CustomerPayment extends javax.swing.JFrame {
 
+    PaymentInterface payment = new Payment();
     SalesOrderInterface salesorder = new SalesOrder();
-    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     
     /**
      * Creates new form CustomerPayment
      */
     public CustomerPayment() {
         initComponents();  
+        initSubTotal();
         setOrderID();
-    
         setDefaultCloseOperation(CustomerPayment.DISPOSE_ON_CLOSE);
     }
     
-    public void setOrderID(){
+    public void setAmount(double TotalAmount) {
+        this.jTextField1.setText(String.valueOf(TotalAmount));
+    }
+    
+    public void initSubTotal(){
+        TableModel model1 = paymentTable.getModel();
+        
+        int nRow = paymentTable.getRowCount();
+        double TotalAmount = 0;
+        
+        System.out.print(nRow);
+        
+        for(int i = 0; i < nRow; i++){
+          TotalAmount =  Double.parseDouble(model1.getValueAt(i, 4).toString());
+        }
+        
+        jTextField1.setText(String.valueOf(TotalAmount));
+    }
+    
+    public final void setOrderID(){
         Integer numRow = salesorder.getNumberRows() ;
         String OrderID = "";
          if (numRow < 10){
@@ -41,7 +61,6 @@ public class CustomerPayment extends javax.swing.JFrame {
             OrderID = "SO" + Integer.toString(numRow);
         }
         jTextField4.setText(OrderID); 
-         
     }
 
     /**
@@ -123,11 +142,6 @@ public class CustomerPayment extends javax.swing.JFrame {
         jLabel2.setText("Total Amount : RM");
 
         jTextField1.setEditable(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
 
         jLabel5.setText("Order ID");
 
@@ -207,21 +221,39 @@ public class CustomerPayment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-       
-        
-        
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        TableModel model1 = paymentTable.getModel();
+        int nRow = paymentTable.getRowCount();
+        String itemID = "";
+        Object[] row = new Object[5];
+        for(int i = 0; i < nRow; i++){
+            char a = model1.getValueAt(i, 0).toString().charAt(0);
+            System.out.print(a);
+            switch (a) {
+                case 'C':
+                    itemID = "I0001";
+                    break;
+                case 'R':
+                    itemID = "I0002";
+                    break;
+                case 'T':
+                    itemID = "I0003";  
+                    break;
+                default:
+                    itemID = "I0004";
+                    break;
+            }     
+            salesorder.addOrder(jTextField4.getText(),itemID,Integer.parseInt(model1.getValueAt(i, 3).toString()),"");
+        }
         
-         salesorder.addSalesOrder(jTextField4.getText(),"R0001","C0001",jTextArea1.getText(),50.5,System.currentTimeMillis(),"TRUE");
-         JOptionPane.showMessageDialog(null, "Payment is success", "Payment Message", JOptionPane.INFORMATION_MESSAGE);      
-         System.exit(0); 
+        payment.addPayment("", jTextField4.getText(), PaymentGroup.getElements().nextElement().getText(), jTextField1.getText(), "");
+        salesorder.addSalesOrder(jTextField4.getText(),"R0001","C0001",jTextArea1.getText(),50.5,System.currentTimeMillis(),"TRUE");
+        JOptionPane.showMessageDialog(null, "Payment is success", "Payment Message", JOptionPane.INFORMATION_MESSAGE);      
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         System.exit(0);
+        dispose();       
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -276,4 +308,6 @@ public class CustomerPayment extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     public javax.swing.JTable paymentTable;
     // End of variables declaration//GEN-END:variables
+
+   
 }

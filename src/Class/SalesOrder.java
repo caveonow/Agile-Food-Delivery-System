@@ -67,6 +67,7 @@ public class SalesOrder<T> implements SalesOrderInterface<T> {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 array.add(rs.getString(1));
+                array.add(rs.getString(6));
             }
         } catch (SQLException ex) {
             ex.getMessage();
@@ -81,6 +82,28 @@ public class SalesOrder<T> implements SalesOrderInterface<T> {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    public boolean addOrder(T OrderID, T ItemID, T Quantity, T CreatedDate){
+        String Str = "INSERT INTO LINKORDER (OrderID, ItemID, Quantity, CreatedDate) VALUES (?,?,?,?)";      
+        int temp = 0;
+        try{
+            stmt = conn.prepareStatement(Str,Statement.RETURN_GENERATED_KEYS);
+            
+            stmt.setString(1, String.valueOf(OrderID));
+            stmt.setString(2, String.valueOf(ItemID));
+            stmt.setString(3, String.valueOf(Quantity));
+            stmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+            stmt.executeUpdate();
+            ResultSet keys = stmt.getGeneratedKeys();
+            while (keys.next()){
+                temp = keys.getInt(1);
+            }
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return false;    
     }
 
     public int getNumberRows(){
