@@ -5,6 +5,10 @@
  */
 package Menu;
 
+import Class.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,12 +17,31 @@ import javax.swing.JOptionPane;
  */
 public class CustomerPayment extends javax.swing.JFrame {
 
+    SalesOrderInterface salesorder = new SalesOrder();
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    
     /**
      * Creates new form CustomerPayment
      */
     public CustomerPayment() {
-        initComponents();
+        initComponents();  
+        setOrderID();
+    
         setDefaultCloseOperation(CustomerPayment.DISPOSE_ON_CLOSE);
+    }
+    
+    public void setOrderID(){
+        Integer numRow = salesorder.getNumberRows() ;
+        String OrderID = "";
+         if (numRow < 10){
+            OrderID = "SO00" + Integer.toString(numRow);
+        }else if(numRow < 100){
+            OrderID = "SO0" + Integer.toString(numRow);
+        }else{
+            OrderID = "SO" + Integer.toString(numRow);
+        }
+        jTextField4.setText(OrderID); 
+         
     }
 
     /**
@@ -91,6 +114,11 @@ public class CustomerPayment extends javax.swing.JFrame {
         });
 
         jButton2.setText("Cancel");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Total Amount : RM");
 
@@ -186,8 +214,15 @@ public class CustomerPayment extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            JOptionPane.showMessageDialog(null, "Payment is success", "Payment Message", JOptionPane.INFORMATION_MESSAGE);      
+        
+         salesorder.addSalesOrder(jTextField4.getText(),"R0001","C0001",jTextArea1.getText(),50.5,System.currentTimeMillis(),"TRUE");
+         JOptionPane.showMessageDialog(null, "Payment is success", "Payment Message", JOptionPane.INFORMATION_MESSAGE);      
+         System.exit(0); 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         System.exit(0);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
