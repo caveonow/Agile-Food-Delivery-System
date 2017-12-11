@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Menu;
+package newpackage;
+
+import java.awt.event.ActionEvent;
 
 /**
  *
@@ -32,6 +34,7 @@ public class FoodMenu extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -39,7 +42,7 @@ public class FoodMenu extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"F001", "Chicken Chop", "13.50", "chicken thigh with sauce", "Yes"},
+                {"F001", "Chicken Chop", "13.50", "chicken tigh with sauce", "Yes"},
                 {"F002", "Pasta ", "14.50", "paste with creamy sauce", "No"},
                 {"F003", "Fried Rice", "10.00", "rice with few ingredients", "Yes"},
                 {"F004", "Pan mee", "7.50", "Pan mee with some meats ball", "No"}
@@ -67,6 +70,13 @@ public class FoodMenu extends javax.swing.JFrame {
 
         jButton2.setText("Make Promotion");
 
+        jButton3.setText("Delete");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,7 +89,9 @@ public class FoodMenu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(30, 30, 30)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton2)
+                        .addGap(35, 35, 35)
+                        .addComponent(jButton3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -92,7 +104,8 @@ public class FoodMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -100,10 +113,16 @@ public class FoodMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      new AddFood().setVisible(true);
-      this.setVisible(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+//        public actionPerformed(ActionEvent e) {
+        new DeleteFood().setVisible(true);
+//        FoodMenu.this.dispose();
+        
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,9 +159,11 @@ public class FoodMenu extends javax.swing.JFrame {
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
